@@ -1,6 +1,8 @@
 ## Proyecto Instaclass
 Aplicación desarrollada por Javier Elgueta Dejeas.
 
+Esto lo agrege con la plataforma de github.
+
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
