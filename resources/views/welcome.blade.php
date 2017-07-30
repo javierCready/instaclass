@@ -1,16 +1,20 @@
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ config('app.locale') }}">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>INSTACLASS</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+         <!-- script css oscuro   1 linea -->
+        <link href="https://bootswatch.com/superhero/bootstrap.css" rel="stylesheet">
+            <!-- script css boscuro    -->
 
         <!-- Styles -->
+
         <style>
             html, body {
                 background-color: #fff;
@@ -69,25 +73,23 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}">Inicio</a>
                     @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
+                        <b><a href="{{ url('/login') }}">Iniciar Sesión</a></b>
+                        <b><a href="#"> | </a></b>
+                        <b><a href="{{ url('/register') }}">Registrarse</a></b>
                     @endif
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    
+                    <img src="{{ asset('inicio.png') }}" width="1110px" height="300px">
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <b><a href="http://www.instaclass.cl">Página Web</a></b>
                 </div>
             </div>
         </div>
