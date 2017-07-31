@@ -6,6 +6,10 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+//aqui se envian vendor/laravel/framework/src/Illuminate/foundation/auth/registersusers.php
+
+use Illuminate\Support\Facades\Mail;//agregar
+
 
 class RegisterController extends Controller
 {
@@ -27,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/respuesta';
 
     /**
      * Create a new controller instance.
@@ -45,12 +49,25 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+    //funcion que genera codigo
+    function generarCodigo($longitud) 
+    {
+        $key = '';
+        $pattern = '1234567890abcdefghijklmnopqrstuvwxyz';
+        $max = strlen($pattern)-1;
+        for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
+        return $key;
+    }
+    //fin de la funcion
+
+
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            
         ]);
     }
 
@@ -62,10 +79,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $code = $this->generarCodigo(10);
+        $email = $data['email'];
+        $dates = array('name' => $data['name'],'code' => $code);
+        $this->Email($dates,$email);
+        
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'code' => $code,
+            
         ]);
+    }
+
+    function Email($dates,$email)
+    {
+        Mail::send('emails.plantilla',$dates, function($message) use($email)
+        {
+                $message->subject('Bienvenido a INSTACLASS: La tecnología al sevicio de la educación.');
+                $message->to($email);
+                $message->from('no-contestar@instaclass.cl','InstaClass');
+        });
     }
 }
